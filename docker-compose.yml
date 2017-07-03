@@ -1,0 +1,32 @@
+version: '2.1'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+        - 27017:27017
+    volumes:
+        - ~/dplayer/db:/data/db
+  redis:
+    image: redis:latest
+    ports:
+        - "6379:6379"
+  web:
+    build: .
+    links:
+      - mongo
+      - redis
+    depends_on:
+      - mongo
+      - redis
+    ports:
+      - 1207:1207
+    environment:
+      REDIS_PORT_6379_TCP_ADDR: "redis"
+      REDIS_PORT_6379_TCP_PORT: 6379
+      MONGO_PORT_27017_TCP_ADDR: "mongo"
+      MONGO_PORT_27017_TCP_PORT: 27017
+      MONGO_INSTANCE_NAME: "danmaku"
+    volumes:
+      - ~/dplayer/logs:/usr/src/app/logs
+      - ~/dplayer/pm2logs:/root/.pm2/logs
