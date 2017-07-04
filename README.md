@@ -7,7 +7,7 @@
 ```
 $ docker-compose build
 $ docker-compose pull
-$ docker-compose up
+$ docker-compose up // -d for run it in the background
 ```
 
 ## Communication Groups
@@ -20,7 +20,7 @@ $ docker-compose up
 
 - [DPlayer](https://github.com/DIYgod/DPlayer)
 
-- [Official danmaku data (https://api.prprpr.me/dplayer/)](https://github.com/DIYgod/DPlayer-data)
+- [DPlayer-data(weekly backup for api.prprpr.me/dplayer)](https://github.com/DIYgod/DPlayer-data)
 
 - [DPlayer-for-typecho](https://github.com/volio/DPlayer-for-typecho)
 
