@@ -1,20 +1,19 @@
 var log4js = require('log4js');
 log4js.configure({
-    appenders: [
-        {
-            type: "file",
+    appenders: {
+        DPlayer: {
+            type: 'file',
             filename: 'logs/DPlayer.log',
             maxLogSize: 20480,
             backups: 3,
-            category: [ 'DPlayer','console' ]
+            compress: true
         },
-        {
-            type: "console"
+        console: {
+            type: 'console'
         }
-    ],
-    replaceConsole: true
+    },
+    categories: { default: { appenders: ['DPlayer', 'console'], level: 'INFO' } }
 });
 var logger = log4js.getLogger('DPlayer');
-logger.setLevel('INFO');
 
 module.exports = logger;

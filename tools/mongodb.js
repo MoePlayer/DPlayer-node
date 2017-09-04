@@ -6,6 +6,8 @@ if (process.env.MONGO_PORT_27017_TCP_ADDR && process.env.MONGO_PORT_27017_TCP_PO
 else {
     mongodbUrl = 'mongodb://127.0.0.1:27017/danmaku';
 }
-mongoose.connect(mongodbUrl);
+mongoose.connect(mongodbUrl, {
+    useMongoClient: true,
+});
 
 module.exports = mongoose;

@@ -4,10 +4,38 @@
 
 ## Usage
 
+### Start
+
+```shell
+docker-compose build
+docker-compose pull
+docker-compose up # -d for run it in the background
 ```
-$ docker-compose build
-$ docker-compose pull
-$ docker-compose up // -d for run it in the background
+
+### Data & logs
+
+Database data: `~/dplayer/db`
+DPlayer logs: `~/dplayer/logs`
+PM2 logs: `~/dplayer/pm2logs`
+
+### Import
+
+```shell
+mv dan.json ~/dplayer/db/backup/dans.json
+docker exec dplayerbackend_mongo_1 mongoimport -d danmaku -c dans --file /data/db/backup/dans.json
+```
+
+### Export
+
+```shell
+docker exec dplayerbackend_mongo_1 mongoexport -d danmaku -c dans -o /data/db/backup/dans.json
+cat ~/dplayer/db/backup/dans.json
+```
+
+### Stop
+
+```shell
+docker-compose stop
 ```
 
 ## Communication Groups
