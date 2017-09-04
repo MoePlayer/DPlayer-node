@@ -21,14 +21,14 @@ PM2 logs: `~/dplayer/pm2logs`
 ### Import
 
 ```shell
-mv dan.json ~/dplayer/db/backup/dans.json
-docker exec dplayerbackend_mongo_1 mongoimport -d danmaku -c dans --file /data/db/backup/dans.json
+mv dans.json ~/dplayer/db/backup/dans.json
+docker exec dplayernode_mongo_1 mongoimport -d danmaku -c dans --file /data/db/backup/dans.json
 ```
 
 ### Export
 
 ```shell
-docker exec dplayerbackend_mongo_1 mongoexport -d danmaku -c dans -o /data/db/backup/dans.json
+docker exec dplayernode_mongo_1 mongoexport -d danmaku -c dans -o /data/db/backup/dans.json
 cat ~/dplayer/db/backup/dans.json
 ```
 
