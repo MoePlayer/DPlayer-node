@@ -1,7 +1,7 @@
-var fs = require('fs');
 var logger = require('../tools/logger');
 var danmaku = require('../models/danmaku');
 var redis = require('../tools/redis');
+var blank = require('../tools/blank');
 
 function htmlEncode(str) {
     return str.replace(/&/g, "&amp;")
@@ -23,8 +23,7 @@ module.exports = function (req, res) {
         req.connection.socket.remoteAddress;
 
     // check black ip
-    var blanklist = fs.readFileSync('blacklist').toString().split('\n');
-    if (blanklist.indexOf(ip.split(',')[0]) !== -1) {
+    if (blank(ip)) {
         logger.info(`Reject POST form ${ip} for black ip.`);
         res.send(`{"code": -1, "msg": "Rejected for black ip."}`);
         return;
