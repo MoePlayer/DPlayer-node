@@ -3,9 +3,9 @@ var blank = require('../tools/blank');
 
 module.exports = function (req, res, next) {
 
-    if (blank(req.headers.host)) {
-        logger.info(`Reject POST form ${req.headers.host} for black host.`);
-        res.send(`{"code": -6, "msg": "Rejected for black host."}`);
+    if (req.headers.referer && blank(req.headers.referer)) {
+        logger.info(`Reject POST form ${req.headers.referer} for black referer.`);
+        res.send(`{"code": -6, "msg": "Rejected for black referer."}`);
         return;
     }
     
