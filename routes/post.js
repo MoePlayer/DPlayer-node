@@ -80,7 +80,7 @@ module.exports = function (req, res) {
         }
 
         // check black username
-        if (blanklist.indexOf(jsonStr.author) !== -1) {
+        if (blank(jsonStr.author)) {
             logger.info(`Reject POST form ${jsonStr.author} for black user.`);
             res.send(`{"code": -5, "msg": "Rejected for black user."}`);
             return;
