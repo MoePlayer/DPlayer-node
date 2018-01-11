@@ -21,9 +21,17 @@ module.exports = function (req, res) {
 
             var data = JSON.parse(reply);
 
+            var data = max ? data.slice(data.length - max, data.length) : data;
+
+            var typeMap = {
+                'right': 0,
+                'top': 1,
+                'bottom': 2
+            }
+
             res.send(JSON.stringify({
                 code: 0,
-                danmaku: max ? data.slice(0, max) : data
+                danmaku: data.map(item => [item.time, typeMap[item.type], item.color, item.author, item.text])
             }));
         }
         else {
