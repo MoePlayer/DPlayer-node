@@ -5,7 +5,7 @@ module.exports = function (req, res, next) {
 
     if (req.headers.referer && blank(req.headers.referer)) {
         logger.info(`Reject all form ${req.headers.referer} for black referer.`);
-        res.send(`{"code": -6, "msg": "Rejected for black referer."}`);
+        res.send(`{"code": 6, "msg": "black referer"}`);
         return;
     }
     
