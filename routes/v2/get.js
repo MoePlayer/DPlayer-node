@@ -31,6 +31,7 @@ module.exports = function (req, res) {
 
             res.send(JSON.stringify({
                 code: 0,
+                version: 2,
                 danmaku: data.map(item => [item.time, typeMap[item.type], item.color, item.author, item.text])
             }));
         }
@@ -53,6 +54,7 @@ module.exports = function (req, res) {
                 }
                 res.send(JSON.stringify({
                     code: 0,
+                    version: 2,
                     danmaku: data.map(item => [item.time, typeMap[item.type], item.color, item.author, item.text])
                 }));
             })

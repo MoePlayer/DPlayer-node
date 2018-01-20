@@ -31,6 +31,7 @@ module.exports = function (req, res) {
 
                 var dan = {
                     code: 0,
+                    version: 2,
                     danmaku: []
                 };
 
@@ -77,6 +78,7 @@ module.exports = function (req, res) {
 
                 var dan = {
                     code: 0,
+                    version: 2,
                     danmaku: []
                 };
 
