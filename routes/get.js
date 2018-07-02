@@ -1,43 +1,32 @@
-var url = require('url');
-var logger = require('../tools/logger');
-var danmaku = require('../models/danmaku');
-var redis = require('../tools/redis');
+function htmlEncode (str) {
+    return str.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2f;');
+}
 
-module.exports = function (req, res) {
-    res.header('content-type', 'application/json; charset=utf-8');
+module.exports = async (ctx) => {
+    const { id, limit } = ctx.request.query;
 
-    var ip = req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
-
-    var query = url.parse(req.url,true).query;
-    var id = query.id;
-    var max = query.max;
-
-    redis.client.get(`dplayer${id}`, function(err, reply) {
-        if (reply) {
-            logger.info(`DPlayer id ${id} form redis, IP: ${ip}`);
-            res.send(reply);
+    let data = await ctx.redis.get(`danmaku${id}`);
+    if (data) {
+        data = JSON.parse(data);
+        if (limit) {
+            data = data.slice(-1 * parseInt(limit));
         }
-        else {
-            logger.info(`DPlayer id ${id} form mongodb, IP: ${ip}`);
-
-            danmaku.find({player: id}, function (err, data) {
-                if (err) {
-                    logger.error(err);
-                }
-
-                var dan = {
-                    code: 1,
-                    danmaku: []
-                };
-                dan.danmaku = max ? data.slice(0, max) : data;
-                var sendDan = JSON.stringify(dan);
-                res.send(sendDan);
-
-                redis.set(`dplayer${id}`, sendDan);
-            })
+        ctx.response.set('X-Koa-Redis', 'true');
+    } else {
+        data = await ctx.mongodb.find({ id }) || [];
+        ctx.redis.set(`danmaku${id}`, JSON.stringify(data));
+        if (limit) {
+            data = data.slice(-1 * parseInt(limit));
         }
+        ctx.response.set('X-Koa-Mongodb', 'true');
+    }
+    ctx.body = JSON.stringify({
+        code: 0,
+        data: data.map((item) => [item.time || 0, item.type || 0, item.color || 16777215, htmlEncode(item.author) || 'DPlayer', htmlEncode(item.text) || '']),
     });
 };

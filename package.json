@@ -5,14 +5,18 @@
   "main": "index.js",
   "author": "DIYgod",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "5.0.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.6.1"
+  },
   "dependencies": {
-    "blueimp-md5": "2.10.0",
-    "express": "4.16.2",
-    "log4js": "2.4.1",
-    "mongoose": "4.13.9",
-    "node-fetch": "1.7.3",
+    "koa": "2.5.1",
+    "koa-bodyparser": "4.2.1",
+    "koa-router": "7.4.0",
+    "mongoose": "5.1.7",
     "redis": "2.8.0",
+    "winston": "3.0.0",
     "xml2js": "0.4.19"
   }
 }
