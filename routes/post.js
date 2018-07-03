@@ -11,7 +11,8 @@ module.exports = async (ctx) => {
         color: body.color,
         type: body.type,
         ip: ctx.ips[0] || ctx.ip,
-        referer: ctx.headers.referer
+        referer: ctx.headers.referer,
+        date: +new Date(),
     });
     dan.save((err, data) => {
         if (err) {

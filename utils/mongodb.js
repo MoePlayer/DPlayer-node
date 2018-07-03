@@ -24,6 +24,7 @@ const danmakuSchema = new mongoose.Schema({
     type: Number,
     ip: String,
     referer: String,
+    date: Number,
 });
 const danmaku = mongoose.model('dan', danmakuSchema);
 
