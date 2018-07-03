@@ -14,20 +14,19 @@ module.exports = async (ctx) => {
         referer: ctx.headers.referer,
         date: +new Date(),
     });
-    dan.save((err, data) => {
-        if (err) {
-            logger.error(err);
-            ctx.body = JSON.stringify({
-                code: 1,
-                msg: 'Database error',
-            });
-        }
-        else {
-            ctx.body = JSON.stringify({
-                code: 0,
-                data,
-            });
-            ctx.redis.del(`danmaku${data.id}`);
-        }
-    });
+    try {
+        const data = await dan.save();
+        ctx.body = JSON.stringify({
+            code: 0,
+            data,
+        });
+        ctx.redis.del(`danmaku${data.id}`);
+    }
+    catch (err) {
+        logger.error(err);
+        ctx.body = JSON.stringify({
+            code: 1,
+            msg: `Database error: ${err}`,
+        });
+    }
 };
