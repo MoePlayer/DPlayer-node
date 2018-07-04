@@ -4,7 +4,7 @@ module.exports = async (ctx) => {
     const body = ctx.request.body;
 
     const dan = new ctx.mongodb({
-        id: body.id,
+        player: body.id,
         author: body.author,
         time: body.time,
         text: body.text,

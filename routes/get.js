@@ -18,7 +18,7 @@ module.exports = async (ctx) => {
         }
         ctx.response.set('X-Koa-Redis', 'true');
     } else {
-        data = await ctx.mongodb.find({ id }) || [];
+        data = await ctx.mongodb.find({ player: id }) || [];
         ctx.redis.set(`danmaku${id}`, JSON.stringify(data));
         if (limit) {
             data = data.slice(-1 * parseInt(limit));

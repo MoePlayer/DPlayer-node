@@ -13,7 +13,7 @@ db.once('open', () => {
 });
 
 const danmakuSchema = new mongoose.Schema({
-    id: {
+    player: {
         type: String,
         index: true,
     },
