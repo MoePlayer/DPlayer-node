@@ -20,7 +20,7 @@ module.exports = async (ctx) => {
             code: 0,
             data,
         });
-        ctx.redis.del(`danmaku${data.id}`);
+        ctx.redis.del(`danmaku${data.player}`);
     }
     catch (err) {
         logger.error(err);
