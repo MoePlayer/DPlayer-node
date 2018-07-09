@@ -11,10 +11,12 @@
     "eslint-plugin-prettier": "2.6.1"
   },
   "dependencies": {
+    "cheerio": "1.0.0-rc.2",
     "koa": "2.5.1",
     "koa-bodyparser": "4.2.1",
     "koa-router": "7.4.0",
     "mongoose": "5.1.7",
+    "node-fetch": "2.1.2",
     "redis": "2.8.0",
     "winston": "3.0.0",
     "xml2js": "0.4.19"
