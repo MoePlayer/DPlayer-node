@@ -24,9 +24,9 @@ client.on('connect', () => {
 const getAsync = promisify(client.get).bind(client);
 
 module.exports = {
-    set: (key, value) => {
+    set: (key, value, maxAge = 30 * 24 * 60 * 60) => {
         logger.info('Set redis: ' + key);
-        client.set(key, value);
+        client.setex(key, maxAge, value);
     },
     get: async (key) => await getAsync(key),
     del: (key) => {

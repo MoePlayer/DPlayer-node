@@ -36,7 +36,7 @@ module.exports = async (ctx) => {
             }
             return [[parseFloat(p[0]), type, parseInt(p[3]), p[6], item.text()]];
         }).get();
-        ctx.redis.set(`v3bilibilicid2dan${cid}`, JSON.stringify(data));
+        ctx.redis.set(`v3bilibilicid2dan${cid}`, JSON.stringify(data), 10 * 60);
         ctx.response.set('X-Koa-Origin', 'true');
     }
     ctx.body = JSON.stringify({
