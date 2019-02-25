@@ -4,13 +4,13 @@ services:
   mongo:
     image: mongo:latest
     ports:
-        - 27017:27017
+      - "127.0.0.1:27017:27017"
     volumes:
-        - ~/dplayer/db:/data/db
+      - ~/dplayer/db:/data/db
   redis:
     image: redis:latest
     ports:
-        - "6379:6379"
+      - "127.0.0.1:6379:6379"
   web:
     build: .
     links:
